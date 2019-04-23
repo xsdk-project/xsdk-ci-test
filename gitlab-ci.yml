@@ -1,9 +1,0 @@
-stages:
-    - build
-    
-build:
-    stage: build
-    script:
-        - echo "building"
-        - ls
-        - mkdir gitlab-ci_build
