@@ -7,7 +7,7 @@ job 1:
     script:
         - echo "building"
         - if [ ! -d "xsdk" ]; then
-            git clone https://github.com/xsdk-project/xsdk-ci-test.git
+            git clone https://github.com/xsdk-project/xsdk-ci-test.git;
           fi
         - more README
     cache:
