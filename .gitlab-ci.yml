@@ -1,9 +1,25 @@
 stages:
     - build
-    
-build:
+    - policies
+
+job 1:
     stage: build
     script:
         - echo "building"
-        - ls
+        - if [ ! -d "spack" ]; then
+            git clone https://github.com/spack/spack.git;
+          fi
+        - ./spack/bin/spack info xsdk
         - mkdir gitlab-ci_build
+    cache:
+        paths:
+            - spack/
+job 2:
+    stage: policies
+    script:
+        - echo "policies"
+        - ./spack/bin/spack info pumi
+        - mkdir gitlab-ci_policies
+    cache:
+        paths:
+            - spack/
