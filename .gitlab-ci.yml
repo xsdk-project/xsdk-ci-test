@@ -4,10 +4,11 @@ stages:
 
 before_script:
      - if [ ! -d "spack" ]; then
-            git clone https://github.com/spack/spack.git;
+            git clone https://github.com/spack/spack.git spack;
           fi
      - pwd
      - ls
+     - ls spack
 cache:
         paths:
             - spack/
@@ -18,7 +19,7 @@ job 1:
         - pwd
         - ls
         - if [ ! -d "xsdk-ci-test" ]; then
-            git clone https://github.com/xsdk-project/xsdk-ci-test.git;
+            git clone https://github.com/xsdk-project/xsdk-ci-test.git xsdk-ci-test;
           fi
         - pwd
         - more README
