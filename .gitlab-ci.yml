@@ -9,7 +9,6 @@ before_script:
           fi
      - pwd
      - ls
-     - ls spack
 cache:
         paths:
             - spack/
@@ -18,9 +17,6 @@ job 1:
     script:
         - echo "building"
         - pwd
-        - ls
-        - pwd
-        - cd ..
         - ls
         - pwd
         - cd spack/bin/
