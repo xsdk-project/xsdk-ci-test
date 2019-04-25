@@ -3,9 +3,12 @@ stages:
     - policies
 
 before_script:
+     - cd ..
      - if [ ! -d "spack" ]; then
             git clone https://github.com/spack/spack.git;
           fi
+     - pwd
+     - ls
 cache:
         paths:
             - spack/
@@ -13,22 +16,13 @@ job 1:
     stage: build
     script:
         - echo "building"
+        - pwd
         - ls
-        - if [ ! -d "xsdk-ci-test" ]; then
-            git clone https://github.com/xsdk-project/xsdk-ci-test.git;
-          fi
-        - more README
+        - pwd
         - cd spack/bin/
-        - sh ../../xsdk-ci-test/spack xSDK-install.sh
-    cache:
-        paths:
-            - xsdk-ci-test/
+        - sh ../../xsdk-tests-ci/spack xSDK-install.sh
 job 2:
     stage: policies
     script:
         - echo "policies"
         - more README
-    cache:
-        paths:
-            - spack/
-
