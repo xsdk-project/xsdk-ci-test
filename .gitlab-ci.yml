@@ -2,14 +2,24 @@ stages:
     - build
     - policies
 
+before_script:
+     - if [ ! -d "spack" ]; then
+            git clone https://github.com/spack/spack.git;
+          fi
+cache:
+        paths:
+            - spack/
 job 1:
     stage: build
     script:
         - echo "building"
-        - if [ ! -d "xsdk" ]; then
+        - ls
+        - if [ ! -d "xsdk-ci-test" ]; then
             git clone https://github.com/xsdk-project/xsdk-ci-test.git;
           fi
         - more README
+        - cd spack/bin/
+        - sh ../../xsdk-ci-test/spack xSDK-install.sh
     cache:
         paths:
             - xsdk-ci-test/
