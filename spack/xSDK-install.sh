@@ -7,6 +7,8 @@ do
     rm -rf $i
     mkdir $i
     cd $i
+    pwd
+    ls
     FILENAME=xsdk-install-$i.sh
     echo "$XSDKINSTALL" >> "$FILENAME"
     sed -i '' 's/\<COMPILERS\>/'%$i'/g' $FILENAME
