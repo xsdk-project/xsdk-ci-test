@@ -20,6 +20,8 @@ job 1:
         - ls
         - pwd
         - sh xsdk-tests-ci/spack/xSDK-install.sh $pwd/spack/bin/spack
+        - mkdir can_build_here_test
+        - ls
 job 2:
     stage: policies
     script:
