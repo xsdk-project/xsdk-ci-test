@@ -1,8 +1,8 @@
 #!/bin/bash
+SPACKPATH=$1
+XSDKINSTALL="$SPACKPATH graph xsdk<COMPILERS>"
 
-XSDKINSTALL="spack graph xsdk<COMPILERS>"
-
-for i in $(./spack/bin/spack compilers | grep @)
+for i in $($SPACKPATH compilers | grep @)
 do
     rm -rf $i
     mkdir $i
