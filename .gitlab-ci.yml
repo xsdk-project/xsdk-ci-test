@@ -22,6 +22,16 @@ job 1:
         - sh xsdk-tests-ci/spack/xSDK-install.sh $pwd/spack/bin/spack
         - mkdir can_build_here_test
         - ls
+        - uname -s
+        - case "$(uname -s)" in
+            Darwin)
+                echo 'Darwin'
+            ;;
+            Linux)
+                echo 'Linux'
+            ;;
+          esac
+        
 job 2:
     stage: policies
     script:
