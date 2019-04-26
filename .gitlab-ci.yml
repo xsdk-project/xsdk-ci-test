@@ -20,18 +20,7 @@ job 1:
         - pwd
         - ls
         - pwd
-        - sh xsdk-tests-ci/spack/xSDK-install.sh $pwd/spack/bin/spack
-        - more xsdk-tests-ci/spack/xSDK-install.sh
-        - uname -s
-        - case "$(uname -s)" in
-            Darwin)
-                echo 'Darwin'
-            ;;
-            Linux)
-                echo 'Linux'
-            ;;
-          esac
-        
+        - sh xsdk-tests-ci/spack/xSDK-install.sh $(pwd)/spack/bin/spack        
 job 2:
     stage: policies
     script:
