@@ -11,7 +11,16 @@ do
     ls
     FILENAME=xsdk-install-$i.sh
     echo "$XSDKINSTALL" >> "$FILENAME"
-    sed -i '' 's/\<COMPILERS\>/'%$i'/g' $FILENAME
+    case "$(uname -s)" in
+
+    Darwin)
+    	sed -i '' 's/\<COMPILERS\>/'%$i'/g' $FILENAME
+    ;;
+
+    Linux)
+    	sed -i 's/<COMPILERS>/'%$i'/g' $FILENAME
+    ;;
+    esac
     sh $FILENAME
     cd ../
 done
