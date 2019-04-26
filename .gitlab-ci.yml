@@ -8,8 +8,6 @@ before_script:
      - if [ ! -d "spack" ]; then
             git clone https://github.com/spack/spack.git;
           fi
-     - pwd
-     - ls
 cache:
         paths:
             - spack/
