@@ -3,6 +3,7 @@ stages:
     - policies
 
 before_script:
+     - git pull
      - cd ..
      - if [ ! -d "spack" ]; then
             git clone https://github.com/spack/spack.git;
