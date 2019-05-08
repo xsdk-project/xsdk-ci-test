@@ -2,6 +2,9 @@
 SPACKPATH=$1
 XSDKINSTALL="$SPACKPATH graph xsdk<COMPILERS>"
 
+pwd
+ls
+echo "HEllo xsdk"
 for i in $($SPACKPATH compilers | grep @)
 do
     rm -rf $i
