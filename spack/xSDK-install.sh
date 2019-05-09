@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACKPATH=$1
-XSDKINSTALL="$SPACKPATH graph xsdk<COMPILERS>"
+XSDKINSTALL="$SPACKPATH install --fake xsdk<COMPILERS>"
 
 pwd
 ls
