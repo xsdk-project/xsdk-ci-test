@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACKPATH=$1
-XSDKINSTALL="$SPACKPATH install install phist<COMPILERS>"
+XSDKINSTALL="$SPACKPATH install phist<COMPILERS>"
 
 pwd
 ls
