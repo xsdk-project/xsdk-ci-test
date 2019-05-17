@@ -1,5 +1,5 @@
-#Download base image ubuntu latest
+#Download base image fedora latest
 FROM fedora:latest
 
-# Install Python
-RUN dnf install -y python gcc-c++ git
+# Install dependencies
+RUN dnf install -y curl xz patch lbzip2 findutils python make gcc-c++ gcc-gfortran git
