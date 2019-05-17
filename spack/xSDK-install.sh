@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACKPATH=$1
-XSDKINSTALL="$SPACKPATH install --fake xsdk<COMPILERS>"
+XSDKINSTALL="$SPACKPATH install phist<COMPILERS>"
 
 pwd
 ls
