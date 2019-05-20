@@ -17,7 +17,7 @@ fi
 XSDKINNERSOURCES=$(pwd)/xsdk-inner-sources
 if [ ! -d "$XSDKINNERSOURCES" ]; then
     echo "Creation of xsdk-inner-source..."
-    mkdir XSDKINNERSOURCES
+    mkdir $XSDKINNERSOURCES
 fi
 cd $XSDKINNERSOURCES
 
@@ -30,7 +30,7 @@ echo "Policy test scripts directory : ${POLICYTESTDIR}"
 # 2: Run source tests policies
 # 3: Run build tests policies
 
-PACKAGES=( phist)
+PACKAGES=( phist )
 for i in "${PACKAGES[@]}"
 do
     echo "Test policy on $i..."
