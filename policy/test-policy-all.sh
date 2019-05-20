@@ -10,7 +10,7 @@ SPACKPATH=$1
 # Verify spack path
 if [ ! -d "$SPACKPATH" ]; then
     echo "Spack is not detected."
-    return 1
+    exit 1
 fi
 
 # Create and move to the inner sources directory
@@ -36,5 +36,5 @@ do
     echo "Test policy on $i..."
     tar -xvf ../../spack/var/spack/cache/$i/*
     PKG=$(ls)
-    sh $POLICYTESTDIR/m1.sh $PKG
+    bash /$POLICYTESTDIR/m1.sh $PKG
 done

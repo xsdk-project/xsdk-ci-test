@@ -10,16 +10,14 @@ PKGSOURCE=$1
 # Verify package source
 if [ ! -d "$PKGSOURCE" ]; then
     echo "Source directory isn't detected."
-    return 1
+    exit 1
 fi
 
 # m1 test 1: Check CMakeLists file existence
 if [ ! -f "$PKGSOURCE/CMakeLists.txt" ]; then
     echo "Test 1 : Check CMakeLists.txt ... Failure"
-    return 1
+    exit 1
 else
     echo "Test 1 : Check CMakeLists.txt ... Succes"
-    return 0
-fi
-
-return 0
+    exit 0
+fi
