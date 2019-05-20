@@ -20,4 +20,5 @@ if [ ! -f "$PKGSOURCE/CMakeLists.txt" ]; then
 else
     echo "Test 1 : Check CMakeLists.txt ... Succes"
     exit 0
-fi
+fi
+
