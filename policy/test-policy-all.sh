@@ -36,6 +36,5 @@ do
     echo "Test policy on $i..."
     tar -xvf ../../spack/var/spack/cache/$i/*
     PKG=$(ls)
-    cd PKG
-#sh POLICYTESTDIR
+    sh $POLICYTESTDIR/m1.sh $PKG
 done
