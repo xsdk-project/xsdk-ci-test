@@ -37,4 +37,5 @@ do
     tar -xvf ../../spack/var/spack/cache/$i/*
     PKG=$(ls)
     bash /$POLICYTESTDIR/m1.sh $PKG
+    bash /$POLICYTESTDIR/m7.sh $PKG
 done

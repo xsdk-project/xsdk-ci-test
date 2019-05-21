@@ -15,10 +15,10 @@ fi
 
 # m1 test 1: Check CMakeLists file existence
 if [ ! -f "$PKGSOURCE/CMakeLists.txt" ]; then
-    echo "Test 1 : Check CMakeLists.txt ... Failure"
+    echo "Test 1.1 : Checking CMakeLists.txt: Failure"
     exit 1
 else
-    echo "Test 1 : Check CMakeLists.txt ... Succes"
+    echo "Test 1.1 : Checking CMakeLists.txt: Succes"
     exit 0
 fi
 
