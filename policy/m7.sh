@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script aims to test the m7 policy on a package
-# The first parameter must be inner package source
+# The first parameter must be an inner package source
 
 echo "Tests of XSDK m7 policy ..."
 
@@ -24,7 +24,7 @@ fi
 # m7 test 7.2: Check Licence file is empty
 if [ ! -s $PKGSOURCE/LICENSE* ]; then
     echo "Test 7.2 : Checking Licence file isn't empty: Failure"
-exit 1
+    exit 1
 else
     echo "Test 7.2 : Checking Licence file isn't empty: Succes"
 fi

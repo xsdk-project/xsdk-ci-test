@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script aims to test the m7 policy on a package
-# The first parameter must be inner package source
+# The first parameter must be an inner package source
 
 echo "Tests of XSDK m1 policy ..."
 
