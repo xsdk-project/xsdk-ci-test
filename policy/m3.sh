@@ -21,7 +21,7 @@ for i in "$1"/*;do
         nboccurrence=$(( $(count_mpi_occurrence "$i") + $nboccurrence))
     elif [ -f "$i" ]; then
         if grep -q MPI_COMM_WORLD "$i"; then
-            echo "The file $i contains at least one occurence of MPI_COMM_WORLD"
+            echo "The file $i contains at least one occurence of MPI_COMM_WORLD" >&2
             nboccurrence=$(( $nboccurrence + 1 ))
         fi
     fi
