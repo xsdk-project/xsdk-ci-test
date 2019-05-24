@@ -13,7 +13,7 @@ if [ ! -d $PKGSOURCE ]; then
     exit 1
 fi
 
-# loop & print a folder recusively,
+# loop and find mpi occurrence into a folder
 count_mpi_occurrence() {
 local nboccurrence=0
 for i in "$1"/*;do
