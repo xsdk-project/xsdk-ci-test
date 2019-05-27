@@ -13,6 +13,12 @@ if [ ! -d "$SPACKPATH" ]; then
     exit 1
 fi
 
+homespace = $(pwd)
+
+# list of packages
+PACKAGES=( phist )
+
+# TESTS ON SOURCE
 # Create and move to the inner sources directory
 XSDKINNERSOURCES=$(pwd)/xsdk-inner-sources
 if [ ! -d "$XSDKINNERSOURCES" ]; then
@@ -30,13 +36,24 @@ echo "Policy test scripts directory : ${POLICYTESTDIR}"
 # 2: Run source tests policies
 # 3: Run build tests policies
 
-PACKAGES=( phist )
 for i in "${PACKAGES[@]}"
 do
-    echo "Test policy on $i..."
-    tar -xvf ../../spack/var/spack/cache/$i/*
+    echo "Source test policy on $i..."
+    tar -xvf $SPACKPATH/var/spack/cache/$i/*
     PKG=$(ls)
     bash /$POLICYTESTDIR/m1.sh $PKG
     bash /$POLICYTESTDIR/m3.sh $PKG
     bash /$POLICYTESTDIR/m7.sh $PKG
 done
+
+# TESTS ON BUILD
+cd $SPACKPATH/var/spack/stage/
+for i in "${PACKAGES[@]}"
+do
+    echo "Build test policy on $i..."
+    PKGBUILD=$(ls . | grep $i)
+    cd $PKGBUILD
+    bash /$POLICYTESTDIR/m2.sh $PKGBUILD
+done
+
+cd $homespace
