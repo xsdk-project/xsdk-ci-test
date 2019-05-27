@@ -52,8 +52,7 @@ for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
-    cd $PKGBUILD
-    bash /$POLICYTESTDIR/m2.sh $PKGBUILD
+    bash /$POLICYTESTDIR/m2.sh $PKGBUILD/spack-build
 done
 
 cd $homespace

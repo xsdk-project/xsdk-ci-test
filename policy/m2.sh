@@ -10,11 +10,11 @@ PKGBUILD=$1
 # Verify package source
 if [ ! -d $PKGBUILD ]; then
     echo "Source directory isn't detected."
-    exit 1
+exit 1
 fi
 
 # m1 test 1: Check CMakeLists file existence
-current_dir = $PWD
+CCURENTDIR=$PWD
 cd $PKGBUILD
 make test
 result = $?
