@@ -13,7 +13,8 @@ if [ ! -d $PKGBUILD ]; then
 exit 1
 fi
 
-# m1 test 1: Check CMakeLists file existence
+# m2 test 1: Run make test
+echo "Test 2.1 : Running make test..."
 CCURENTDIR=$PWD
 cd $PKGBUILD
 make test
