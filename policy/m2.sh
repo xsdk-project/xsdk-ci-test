@@ -18,6 +18,6 @@ echo "Test 2.1 : Running make test..."
 CCURENTDIR=$PWD
 cd $PKGBUILD
 make test
-result = $?
+result=$?
 cd $PWD
 exit $result

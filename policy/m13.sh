@@ -7,6 +7,8 @@ echo "Tests of XSDK m13 policy ..."
 
 PKGINSTALL=$1
 
+result=0
+
 # Verify package source
 if [ ! -d $PKGINSTALL ]; then
     echo "Source directory isn't detected."
@@ -15,16 +17,16 @@ fi
 
 if [ ! -d $PKGINSTALL/include ]; then
     echo "Test 13.1 : Checking if the include directory exists: Failure"
-    exit 1
+    $result=1
 else
     echo "Test 13.1 : Checking if the include directory exists: Succes"
-    exit 0
 fi
 
 if [ ! -d $PKGINSTALL/lib ]; then
     echo "Test 13.2 : Checking if the lib directory exists: Failure"
-    exit 1
+    $result=1
 else
     echo "Test 13.2 : Checking if the lib directory exists: Succes"
-    exit 0
 fi
+
+exit $result

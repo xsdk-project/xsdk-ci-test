@@ -14,7 +14,7 @@ if [ ! -d "$SPACKPATH" ]; then
     exit 1
 fi
 
-homespace = $(pwd)
+homespace=$(pwd)
 
 # list of packages
 PACKAGES=( phist )
