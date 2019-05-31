@@ -41,8 +41,8 @@ do
     echo "Source test policy on $i..."
     tar -xvf $SPACKPATH/var/spack/cache/$i/*
     PKG=$(ls)
-    bash /$POLICYTESTDIR/m1.sh $PKG
-    bash $POLICYTESTDIR/m3.sh $PKG
+    bash $homespace/$POLICYTESTDIR/m1.sh $PKG
+    bash $homespace/$POLICYTESTDIR/m3.sh $PKG
     bash $homespace/$POLICYTESTDIR/m7.sh $PKG
 done
 
@@ -65,7 +65,7 @@ do
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
-        echo "Compiler $c: Build test policy on $i..."
+        echo "Compiler $cpath: Build test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
         bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL
     done
