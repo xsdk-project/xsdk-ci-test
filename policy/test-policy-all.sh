@@ -58,13 +58,14 @@ done
 cd $homespace
 
 # TESTS ON INSTALL
+DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
 for c in $($SPACKPATH/bin/spack compilers | grep @)
-    do
-    DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
-    cd $SPACKPATH/opt/spack/$DISTRIBPATH/$c
+cpath==$(echo "$c" | tr @ -)
+do
+    cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
-        echo "Compilerr $c: Build test policy on $i..."
+        echo "Compiler $c: Build test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
         bash /$POLICYTESTDIR/m13.sh $PKGINSTALL
     done
