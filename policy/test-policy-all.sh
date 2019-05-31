@@ -60,7 +60,7 @@ cd $homespace
 # TESTS ON INSTALL
 DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
 for c in $($SPACKPATH/bin/spack compilers | grep @)
-cpath==$(echo "$c" | tr @ -)
+cpath=$(echo "$c" | tr @ -)
 do
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
