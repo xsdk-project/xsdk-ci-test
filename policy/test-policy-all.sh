@@ -42,8 +42,8 @@ do
     tar -xvf $SPACKPATH/var/spack/cache/$i/*
     PKG=$(ls)
     bash /$POLICYTESTDIR/m1.sh $PKG
-    bash /$POLICYTESTDIR/m3.sh $PKG
-    bash /$POLICYTESTDIR/m7.sh $PKG
+    bash $POLICYTESTDIR/m3.sh $PKG
+    bash $homespace/$POLICYTESTDIR/m7.sh $PKG
 done
 
 # TESTS ON BUILD
@@ -52,7 +52,7 @@ for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
-    bash /$POLICYTESTDIR/m2.sh $PKGBUILD/spack-build
+    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILD/spack-build
 done
 
 cd $homespace
@@ -60,14 +60,14 @@ cd $homespace
 # TESTS ON INSTALL
 DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
 for c in $($SPACKPATH/bin/spack compilers | grep @)
-cpath=$(echo "$c" | tr @ -)
 do
+    cpath=$(echo "$c" | tr @ -)
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
         echo "Compiler $c: Build test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
-        bash /$POLICYTESTDIR/m13.sh $PKGINSTALL
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL
     done
 done
 cd $homespace
