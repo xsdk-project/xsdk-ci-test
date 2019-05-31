@@ -6,7 +6,6 @@
 echo "Tests of XSDK policy"
 
 SPACKPATH=$1
-COMPILER=$2
 
 # Verify spack path
 if [ ! -d "$SPACKPATH" ]; then
@@ -59,13 +58,15 @@ done
 cd $homespace
 
 # TESTS ON INSTALL
-DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
-cd $SPACKPATH/opt/spack/$DISTRIBPATH/$COMPILER
-for i in "${PACKAGES[@]}"
-do
-    echo "Build test policy on $i..."
-    PKGINSTALL=$(ls . | grep $i)
-    bash /$POLICYTESTDIR/m13.sh $PKGINSTALL
+for c in $($SPACKPATH/bin/spack compilers | grep @)
+    do
+    DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
+    cd $SPACKPATH/opt/spack/$DISTRIBPATH/$c
+    for i in "${PACKAGES[@]}"
+    do
+        echo "Compilerr $c: Build test policy on $i..."
+        PKGINSTALL=$(ls . | grep $i)
+        bash /$POLICYTESTDIR/m13.sh $PKGINSTALL
+    done
 done
-
 cd $homespace

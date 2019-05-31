@@ -1,11 +1,11 @@
 #!/bin/bash
-SPACKPATH=$1
+SPACKEXEPATH=$1
 XSDKINSTALL="$SPACKPATH install phist<COMPILERS>"
 
 pwd
 ls
-echo "HEllo xsdk"
-for i in $($SPACKPATH compilers | grep @)
+echo "Tests of xsdk installation"
+for i in $($SPACKEXEPATH compilers | grep @)
 do
     rm -rf $i
     mkdir $i
