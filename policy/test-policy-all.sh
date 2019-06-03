@@ -52,6 +52,9 @@ for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
+    ls
+    ls $PKGBUILD
+    echo "PGKbuild : $PKGBUILD"
     bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILD/spack-build
 done
 
@@ -59,13 +62,21 @@ cd $homespace
 
 # TESTS ON INSTALL
 DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
+echo "Install test policy..."
 for c in $($SPACKPATH/bin/spack compilers | grep @)
 do
+    ls
     cpath=$(echo "$c" | tr @ -)
+    echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
+    echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
+    ls $SPACKPATH
+    ls $SPACKPATH/opt/
+    ls $SPACKPATH/opt/spack/
+    ls $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
-        echo "Compiler $cpath: Build test policy on $i..."
+        echo "Compiler $cpath: Install test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
         bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL
     done
