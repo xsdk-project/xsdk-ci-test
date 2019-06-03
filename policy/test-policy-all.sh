@@ -63,7 +63,7 @@ cd $homespace
 # TESTS ON INSTALL
 echo "Install test policy..."
 DISTRIB=$(echo $(cat /etc/*-release | grep DISTRIB_ID) | cut --complement -d "=" -f 1)
-DISTRIBPATH=$(ls $SPACKPATH/opt/spack/ | grep $DISTRIB))
+DISTRIBPATH=$(ls $SPACKPATH/opt/spack/ | grep $DISTRIB)
 for c in $($SPACKPATH/bin/spack compilers | grep @)
 do
     ls
