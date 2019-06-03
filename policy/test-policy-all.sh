@@ -61,18 +61,15 @@ done
 cd $homespace
 
 # TESTS ON INSTALL
-DISTRIBPATH=$(ls $SPACKPATH/opt/spack/)
 echo "Install test policy..."
+DISTRIB=$(echo $(cat /etc/*-release | grep DISTRIB_ID) | cut --complement -d "=" -f 1)
+DISTRIBPATH=$(ls $SPACKPATH/opt/spack/ | grep $DISTRIB))
 for c in $($SPACKPATH/bin/spack compilers | grep @)
 do
     ls
     cpath=$(echo "$c" | tr @ -)
     echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
-    echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
     ls $SPACKPATH
-    ls $SPACKPATH/opt/
-    ls $SPACKPATH/opt/spack/
-    ls $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
