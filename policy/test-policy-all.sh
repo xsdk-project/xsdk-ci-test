@@ -53,7 +53,7 @@ do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
-    ls $PKGBUILDPATH
+    ls $SPACKPATH/var/spack/stage/$PKGBUILD/
     bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH
 done
 
