@@ -52,8 +52,9 @@ for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
+    echo "PKGBUILD : $PKGBUILD"
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
-    ls $SPACKPATH/var/spack/stage/$PKGBUILD/
+    ls $SPACKPATH/var/spack/stage
     bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH
 done
 
