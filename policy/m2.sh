@@ -16,9 +16,9 @@ fi
 # m2 test 1: Run make test
 echo "Test 2.1 : Running make test on $PKGBUILD..."
 ls $PKGBUILD
-CCURENTDIR=$PWD
+CURRENTDIR=$PWD
 cd $PKGBUILD
 make test
 result=$?
-cd $CCURENTDIR
+cd $CURRENTDIR
 exit $result
