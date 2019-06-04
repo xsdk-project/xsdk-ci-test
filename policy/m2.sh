@@ -14,10 +14,11 @@ exit 1
 fi
 
 # m2 test 1: Run make test
-echo "Test 2.1 : Running make test..."
+echo "Test 2.1 : Running make test on $PKGBUILD..."
+ls $PKGBUILD
 CCURENTDIR=$PWD
 cd $PKGBUILD
 make test
 result=$?
-cd $PWD
+cd $CCURENTDIR
 exit $result

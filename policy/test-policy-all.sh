@@ -52,9 +52,6 @@ for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
     PKGBUILD=$(ls . | grep $i)
-    ls
-    ls $PKGBUILD
-    echo "PGKbuild : $PKGBUILD"
     bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILD/spack-build
 done
 
@@ -66,10 +63,8 @@ DISTRIB=$(echo $(cat /etc/*-release | grep DISTRIB_ID) | cut --complement -d "="
 DISTRIBPATH=$(ls $SPACKPATH/opt/spack/ | grep ${DISTRIB,,})
 for c in $($SPACKPATH/bin/spack compilers | grep @)
 do
-    ls
     cpath=$(echo "$c" | tr @ -)
     echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
-    ls $SPACKPATH
     cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
     for i in "${PACKAGES[@]}"
     do
