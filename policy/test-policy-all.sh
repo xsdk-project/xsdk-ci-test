@@ -51,7 +51,7 @@ cd $SPACKPATH/var/spack/stage/
 for i in "${PACKAGES[@]}"
 do
     echo "Build test policy on $i..."
-    PKGBUILD=$(echo $(ls -lt . | grep $i) | rev | cut -d " " -f 1 | rev)
+    PKGBUILD=$(ls -t . | grep $i)
     echo "PKGBUILD : $PKGBUILD"
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
     ls $SPACKPATH/var/spack/stage
