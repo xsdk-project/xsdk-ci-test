@@ -1,6 +1,6 @@
 #!/bin/bash
 SPACKEXEPATH=$1
-XSDKINSTALL="$SPACKPATH install --keep-stage --source phist<COMPILERS>"
+XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source phist<COMPILERS>"
 
 pwd
 ls

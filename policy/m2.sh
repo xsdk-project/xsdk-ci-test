@@ -9,7 +9,7 @@ PKGBUILD=$1
 
 # Verify package source
 if [ ! -d $PKGBUILD ]; then
-    echo "Source directory isn't detected."
+    echo "build directory isn't detected."
 exit 1
 fi
 
