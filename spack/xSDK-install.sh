@@ -1,12 +1,8 @@
 #!/bin/bash
 SPACKEXEPATH=$1
-XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source phist<COMPILERS>"
+XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source xsdk<COMPILERS>"
 
-pwd
-ls
-whoami
 echo "Tests of xsdk installation"
-echo "${XSDKINSTALL}"
 for i in $($SPACKEXEPATH compilers | grep @)
 do
     rm -rf $i
