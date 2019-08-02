@@ -1,7 +1,6 @@
 #!/bin/bash
 SPACKEXEPATH=$1
-#XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source xsdk<COMPILERS>"
-XSDKINSTALL="$SPACKEXEPATH install xsdk<COMPILERS>"
+XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source xsdk<COMPILERS>"
 
 echo "Tests of xsdk installation"
 for i in $($SPACKEXEPATH compilers | grep @)
