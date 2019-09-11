@@ -38,23 +38,25 @@ echo "Policy test scripts directory : ${POLICYTESTDIR}"
 
 for i in "${PACKAGES[@]}"
 do
-    echo "Source test policy on $i..."
-    tar -xvf $SPACKPATH/var/spack/cache/$i/*
-    PKG=$(ls)
-    bash $homespace/$POLICYTESTDIR/m1.sh $PKG >> $homespace/report_m1.txt
-    bash $homespace/$POLICYTESTDIR/m3.sh $PKG >> $homespace/report_m3.txt
-    bash $homespace/$POLICYTESTDIR/m7.sh $PKG >> $homespace/report_m7.txt
+    PKGSOURCE=$(ls)
+    echo "Source test policy on directory $PKGSOURCE for package $i... "
+    tar -xf $SPACKPATH/var/spack/cache/$i/*
+    echo "Running m1.sh on $i..."
+    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m1.txt
+    echo "Running m3.sh on $i..."
+    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m3.txt
+    echo "Running m7.sh on $i..."
+    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m7.txt
 done
 
 # TESTS ON BUILD
 cd $SPACKPATH/var/spack/stage/
 for i in "${PACKAGES[@]}"
 do
-    echo "Build test policy on $i..."
     PKGBUILD=$(ls -t . | grep $i)
-    echo "PKGBUILD : $PKGBUILD"
+    echo "Build test policy on directory $PKGBUILD for package $i... "
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
-    ls $SPACKPATH/var/spack/stage
+    echo "Running m2.sh on $i..."
     bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH >> $homespace/report_m2.txt
 done
 
@@ -73,6 +75,7 @@ do
     do
         echo "Compiler $cpath: Install test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
+        echo "Running m13.sh on $i..."
         bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL >> $homespace/report_m13.txt
     done
 done
