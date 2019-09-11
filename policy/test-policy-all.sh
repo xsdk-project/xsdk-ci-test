@@ -41,9 +41,9 @@ do
     echo "Source test policy on $i..."
     tar -xvf $SPACKPATH/var/spack/cache/$i/*
     PKG=$(ls)
-    bash $homespace/$POLICYTESTDIR/m1.sh $PKG
-    bash $homespace/$POLICYTESTDIR/m3.sh $PKG
-    bash $homespace/$POLICYTESTDIR/m7.sh $PKG
+    bash $homespace/$POLICYTESTDIR/m1.sh $PKG > $homespace/report_m1.txt
+    bash $homespace/$POLICYTESTDIR/m3.sh $PKG > $homespace/report_m3.txt
+    bash $homespace/$POLICYTESTDIR/m7.sh $PKG > $homespace/report_m7.txt
 done
 
 # TESTS ON BUILD
@@ -55,7 +55,7 @@ do
     echo "PKGBUILD : $PKGBUILD"
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
     ls $SPACKPATH/var/spack/stage
-    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH
+    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/report_m2.txt
 done
 
 cd $homespace
@@ -73,7 +73,7 @@ do
     do
         echo "Compiler $cpath: Install test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
-        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report_m13.txt
     done
 done
 cd $homespace
