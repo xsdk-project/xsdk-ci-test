@@ -13,27 +13,28 @@ if [ ! -d $PKGSOURCE ]; then
     exit 1
 fi
 
+FILETODISPLAY=""
+COUNTER=0
 # loop and find mpi occurrence into a folder
-count_mpi_occurrence() {
-local nboccurrence=0
-for i in "$1"/*;do
-    if [ -d "$i" ];then
-        nboccurrence=$(( $(count_mpi_occurrence "$i") + $nboccurrence))
-    elif [ -f "$i" ]; then
-        if grep -q MPI_COMM_WORLD "$i"; then
-            echo "The file $i contains at least one occurence of MPI_COMM_WORLD"
-            nboccurrence=$(( $nboccurrence + 1 ))
+count_mpi_occurrence()
+{
+    for i in "$1"/*;do
+        if [ -d "$i" ];then
+             count_mpi_occurrence "$i"
+        elif [ -f "$i" ]; then
+            if grep -q MPI_COMM_WORLD "$i"; then
+                echo "The file $i contains at least one occurence of MPI_COMM_WORLD"
+                COUNTER=$(( $COUNTER + 1 ))
+            fi
         fi
-    fi
-done
-echo $nboccurrence
+    done
 }
 
 # m1 test 3.1: Check if the source code contains any occurence of MPI_COMM_WORLD
-counter=$(count_mpi_occurrence $PKGSOURCE)
+count_mpi_occurrence $PKGSOURCE FILETODISPLAY
 
-echo "$counter source code files contain at least one occurence of MPI_COMM_WORLD"
-if [ $counter -gt 0 ]; then
+echo "$COUNTER source code files contain at least one occurence of MPI_COMM_WORLD"
+if [ $COUNTER -gt 0 ]; then
     echo "Test 3.1 : Checking MPI_COMM_WORLD is not used in the source code: Failure"
     exit 1
 else
