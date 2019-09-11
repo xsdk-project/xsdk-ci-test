@@ -42,11 +42,11 @@ do
     echo "Source test policy on directory $PKGSOURCE for package $i... "
     tar -xf $SPACKPATH/var/spack/cache/$i/*
     echo "Running m1.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m1.txt
+    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$i/report_m1.txt
     echo "Running m3.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m3.txt
+    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$i/report_m3.txt
     echo "Running m7.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE >> $homespace/report/${PACKAGES[@]/report_m7.txt
+    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$i/report_m7.txt
 done
 
 # TESTS ON BUILD
@@ -57,7 +57,7 @@ do
     echo "Build test policy on directory $PKGBUILD for package $i... "
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
     echo "Running m2.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH >> $homespace/report_m2.txt
+    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/$i/report_m2.txt
 done
 
 cd $homespace
@@ -76,7 +76,7 @@ do
         echo "Compiler $cpath: Install test policy on $i..."
         PKGINSTALL=$(ls . | grep $i)
         echo "Running m13.sh on $i..."
-        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL >> $homespace/report_m13.txt
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/$i/report_m13.txt
     done
 done
 cd $homespace
