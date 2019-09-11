@@ -70,7 +70,7 @@ do
     fi
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
     echo "Running m2.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/$i/report_m2.txt
+    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/report/$i/report_m2.txt
 done
 
 cd $homespace
@@ -97,7 +97,7 @@ do
         fi
         PKGINSTALL=$(ls . | grep $i)
         echo "Running m13.sh on $i..."
-        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/$i/report_m13.txt
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report/$c/$i/report_m13.txt
     done
 done
 cd $homespace
