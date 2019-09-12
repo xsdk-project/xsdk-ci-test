@@ -51,11 +51,11 @@ do
         mkdir $homespace/report/$i
     fi
     echo "Running m1.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$i/report_m1.txt
+    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$i/report_m1.log
     echo "Running m3.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$i/report_m3.txt
+    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$i/report_m3.log
     echo "Running m7.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$i/report_m7.txt
+    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$i/report_m7.log
 done
 
 # TESTS ON BUILD
@@ -70,7 +70,7 @@ do
     fi
     PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
     echo "Running m2.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/report/$i/report_m2.txt
+    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/report/$i/report_m2.log
 done
 
 cd $homespace
@@ -97,7 +97,7 @@ do
         fi
         PKGINSTALL=$(ls . | grep $i)
         echo "Running m13.sh on $i..."
-        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report/$c/$i/report_m13.txt
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report/$c/$i/report_m13.log
     done
 done
 cd $homespace
