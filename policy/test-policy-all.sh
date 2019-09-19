@@ -16,7 +16,7 @@ fi
 homespace=$(pwd)
 
 # list of packages
-PACKAGES=( phist )
+PACKAGES=( $2 )
 
 # TESTS ON SOURCE
 # Create and move to the inner sources directory
