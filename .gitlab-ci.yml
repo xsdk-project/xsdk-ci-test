@@ -1,23 +1,48 @@
 stages:
     - build
-    - policies
+
 
 before_script:
-     - git pull origin master
-     - cd ..
-     - if [ ! -d "spack" ]; then
-            git clone https://github.com/spack/spack.git;
-          fi
-cache:
-        paths:
-            - spack/
+     - if [  -d "spack" ]; then
+            rm -rf spack;
+        fi
+     - if [  -d "xsdk-tests-ci" ]; then
+          rm -rf xsdk-tests-ci;
+        fi
+     - git clone https://github.com/spack/spack.git;
+     - git clone https://github.com/xsdk-project/xsdk-ci-test.git xsdk-tests-ci;
+     - bash xsdk-tests-ci/spack/xSDK-install.sh $(pwd)/spack/bin/spack
+     - result=$(echo $?)
+     - if [ $result -gt 0 ];then
+     -     return $result
+     - fi
+     - bash xsdk-tests-ci/policy/test-policy-all.sh $(pwd)/spack "phist petsc"
+
 job 1:
+    image: perrinel/fedora-xsdk
     stage: build
     script:
-        - echo "building"
-        - sh xsdk-tests-ci/spack/xSDK-install.sh $(pwd)/spack/bin/spack        
+        - echo "Building for fedora"
+    artifacts:
+        paths:
+        - report/phist/report_m1.log
+        - report/phist/report_m2.log
+        - report/phist/report_m7.log
+        - report/gcc@8.3.1/phist/report_m13.log
+        expire_in: 1 week
+
 job 2:
-    stage: policies
+    image: perrinel/ubuntu-xsdk
+    stage: build
     script:
-        - echo "policies"
-        - more README
+        - echo "Building for ubuntu"
+    artifacts:
+        paths:
+        - report/phist/report_m1.log
+        - report/phist/report_m2.log
+        - report/phist/report_m7.log
+        - report/gcc@7.4.0/phist/report_m13.log
+        - report
+        expire_in: 1 week
+
+        
