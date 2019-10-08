@@ -1,9 +1,18 @@
 #!/bin/bash
+# First parameter must be the spack binary full path
+# Second parameter is optionnal and have to be a list of compilers
+
 SPACKEXEPATH=$1
 XSDKINSTALL="$SPACKEXEPATH install --keep-stage --source xsdk<COMPILERS>"
 
-echo "Tests of xsdk installation"
-for i in $($SPACKEXEPATH compilers | grep @)
+COMPILERS=( $2 )
+if [ -z "$COMPILERS" ]; then
+   COMPILERS=$($SPACKEXEPATH compilers | grep @)
+else
+   COMPILERS="${COMPILERS[@]}"
+fi
+echo "Tests of xsdk installation with the compilers : $COMPILERS"
+for i in $COMPILERS
 do
     rm -rf $i
     mkdir $i
@@ -15,19 +24,13 @@ do
     case "$(uname -s)" in
 
     Darwin)
-    	sed -i '' 's/\<COMPILERS\>/'%$i'/g' $FILENAME
+        sed -i '' 's/\<COMPILERS\>/'%$i'/g' $FILENAME
     ;;
 
     Linux)
-    	sed -i 's/<COMPILERS>/'%$i'/g' $FILENAME
+        sed -i 's/<COMPILERS>/'%$i'/g' $FILENAME
     ;;
     esac
     sh $FILENAME
-    result=$(echo $?)
     cd ../
-    if [ $result -gt 0 ];
-    then
-        exit 1
-    fi
 done
-exit 0
