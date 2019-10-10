@@ -17,8 +17,6 @@ do
     rm -rf $i
     mkdir $i
     cd $i
-    pwd
-    ls
     FILENAME=xsdk-install-$i.sh
     echo "$XSDKINSTALL" >> "$FILENAME"
     case "$(uname -s)" in

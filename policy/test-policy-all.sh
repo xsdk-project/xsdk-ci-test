@@ -17,15 +17,23 @@ homespace=$(pwd)
 
 # list of packages
 PACKAGES=( $2 )
+PACKAGES="${PACKAGES[@]}"
+echo "Tests of xsdk policy for the packages : $PACKAGES"
 
-# TESTS ON SOURCE
-# Create and move to the inner sources directory
-XSDKINNERSOURCES=$(pwd)/xsdk-inner-sources
-if [ ! -d "$XSDKINNERSOURCES" ]; then
-    echo "Creation of xsdk-inner-source..."
-    mkdir $XSDKINNERSOURCES
+# list of compilers
+COMPILERS=( $3 )
+if [ -z "$COMPILERS" ]; then
+   COMPILERS=$($SPACKEXEPATH compilers | grep @)
+else
+   COMPILERS="${COMPILERS[@]}"
 fi
-cd $XSDKINNERSOURCES
+echo "Tests of xsdk installation with the compilers : $COMPILERS"
+
+
+# Store the tests policy directory
+POLICYTESTDIR=$(dirname $0)
+echo "Tests of xsdk installation with the compilers : $COMPILERS"
+
 
 # Store the tests policy directory
 POLICYTESTDIR=$(dirname $0)
@@ -36,68 +44,43 @@ if [ ! -d "$homespace/report" ]; then
     mkdir $homespace/report
 fi
 
-# Tests policy :
-# 1: Untar source
-# 2: Run source tests policies
+# For every compilers and every packagesTests policy :
+# 1: Run source tests policies
+# 2: Run build tests policies
 # 3: Run build tests policies
 
-for i in "${PACKAGES[@]}"
+for c in $COMPILERS
 do
-    PKGSOURCE=$(ls)
-    echo "Source test policy on directory $PKGSOURCE for package $i... "
-    tar -xf $SPACKPATH/var/spack/cache/$i/*
-    if [ ! -d "$homespace/report/$i" ]; then
-        echo "Creation of $i report repository..."
-        mkdir $homespace/report/$i
-    fi
-    echo "Running m1.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$i/report_m1.log
-    echo "Running m3.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$i/report_m3.log
-    echo "Running m7.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$i/report_m7.log
-done
-
-# TESTS ON BUILD
-cd $SPACKPATH/var/spack/stage/
-for i in "${PACKAGES[@]}"
-do
-    PKGBUILD=$(ls -t . | grep $i)
-    echo "Build test policy on directory $PKGBUILD for package $i... "
-    if [ ! -d "$homespace/report/$i" ]; then
-        echo "Creation of $i report repository..."
-        mkdir $homespace/report/$i
-    fi
-    PKGBUILDPATH=$SPACKPATH/var/spack/stage/$PKGBUILD/spack-build
-    echo "Running m2.sh on $i..."
-    bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILDPATH > $homespace/report/$i/report_m2.log
-done
-
-cd $homespace
-
-# TESTS ON INSTALL
-echo "Install test policy..."
-DISTRIB=$(echo $(cat /etc/*-release | grep DISTRIB_ID) | cut --complement -d "=" -f 1)
-DISTRIBPATH=$(ls $SPACKPATH/opt/spack/ | grep ${DISTRIB,,})
-for c in $($SPACKPATH/bin/spack compilers | grep @)
-do
-    cpath=$(echo "$c" | tr @ -)
-    echo "install path : $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath"
-    if [ ! -d "$homespace/report/$c" ]; then
-        echo "Creation of $c report repository..."
-        mkdir $homespace/report/$c
-    fi
-    cd $SPACKPATH/opt/spack/$DISTRIBPATH/$cpath
-    for i in "${PACKAGES[@]}"
+    for p in $PACKAGES
     do
-        echo "Compiler $cpath: Install test policy on $i..."
-        if [ ! -d "$homespace/report/$c/$i" ]; then
-            echo "Creation of $i report repository..."
-            mkdir $homespace/report/$c/$i
+        if [ ! -d "$homespace/report/$c" ]; then
+            mkdir $homespace/report/$c
         fi
-        PKGINSTALL=$(ls . | grep $i)
-        echo "Running m13.sh on $i..."
-        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report/$c/$i/report_m13.log
+        if [ ! -d "$homespace/report/$c/$p" ]; then
+            echo "Creation of $homespace/report/$c/$p report repository..."
+            mkdir $homespace/report/$c/$p
+        fi
+        # Run source tests policies
+        spack cd -b $p%$c
+        PKGSOURCE=$(pwd)
+        echo "Source test policy on directory $PKGSOURCE for package $p... "
+        echo "Running m1.sh on $i and write report to $homespace/report/$c/$p/report_m1.log..."
+        bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$c/$p/report_m1.log
+        echo "Running m3.sh on $i and write report to $homespace/report/$c/$p/report_m3.log..."
+        bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$c/$p/report_m3.log
+        echo "Running m7.sh on $i and write report to $homespace/report/$c/$p/report_m7.log..."
+        bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$c/$p/report_m7.log
+        # Run build tests policies
+        spack cd -s $p%$c
+        cd spack-build
+        PKGBUILD=$(pwd)
+        echo "Running m2.sh on $i and write report to $homespace/report/$c/$p/report_m2.log..."
+        bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILD > $homespace/report/$c/$p/report_m2.log
+        spack cd -i $p%$c
+        PKGINSTALL=$(pwd)
+        echo "Running m13.sh on $i and write report to $homespace/report/$c/$p/report_m13.log..."
+        bash $homespace/$POLICYTESTDIR/m13.sh $PKGINSTALL > $homespace/report/$c/$p/report_m13.log
     done
 done
+
 cd $homespace
