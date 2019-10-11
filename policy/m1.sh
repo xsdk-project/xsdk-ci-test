@@ -13,12 +13,21 @@ if [ ! -d $PKGSOURCE ]; then
     exit 1
 fi
 
-# m1 test 1: Check CMakeLists file existence
+# m1 test 1.1: Check CMakeLists file existence
 if [ ! -f $PKGSOURCE/CMakeLists.txt ]; then
     echo "Test 1.1 : Checking if a CMakeLists.txt exists: Failure"
     exit 1
 else
     echo "Test 1.1 : Checking if a CMakeLists.txt exists: Succes"
+    exit 0
+fi
+
+# m1 test 1.2: Check configure file existence
+if [ ! -f $PKGSOURCE/configure ]; then
+    echo "Test 1.2 : Checking if a configure exists: Failure"
+    exit 1
+else
+    echo "Test 1.2 : Checking if a configure exists: Succes"
     exit 0
 fi
 
