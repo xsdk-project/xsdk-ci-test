@@ -2,7 +2,7 @@
 FROM ubuntu:latest
  
 # Update Software repository and install dependencies
-RUN apt update && apt install -q -y curl python make gcc g++ gfortran git
+RUN apt update && apt install -q -y curl unzip python make gcc g++ gfortran git
 
 # Add a new user "myuser" with user id 8877
 RUN useradd -u 8877 myuser
