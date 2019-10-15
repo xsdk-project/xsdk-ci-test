@@ -60,9 +60,14 @@ do
             echo "Creation of $homespace/report/$c/$p report repository..."
             mkdir $homespace/report/$c/$p
         fi
-        # Run source tests policies
-        spack cd -b $p%$c
-        PKGSOURCE=$(pwd)
+
+        # Run source tests policies spack-src
+        spack -S $p
+        PKGTOPSTAGE=$(pwd)
+        PKGBUILD=$(ls -t . | grep $p)
+        PKGSTAGE=$PKGTOPSTAGE/$PKGBUILD
+        PKGSOURCE=$PKGSTAGE/spack-src
+
         echo "Source test policy on directory $PKGSOURCE for package $p... "
         echo "Running m1.sh on $i and write report to $homespace/report/$c/$p/report_m1.log..."
         bash $homespace/$POLICYTESTDIR/m1.sh $PKGSOURCE > $homespace/report/$c/$p/report_m1.log
@@ -70,12 +75,12 @@ do
         bash $homespace/$POLICYTESTDIR/m3.sh $PKGSOURCE > $homespace/report/$c/$p/report_m3.log
         echo "Running m7.sh on $i and write report to $homespace/report/$c/$p/report_m7.log..."
         bash $homespace/$POLICYTESTDIR/m7.sh $PKGSOURCE > $homespace/report/$c/$p/report_m7.log
+
         # Run build tests policies
-        spack cd -s $p%$c
-        cd spack-build
-        PKGBUILD=$(pwd)
+        PKGBUILD=$PKGSTAGE/spack-build
         echo "Running m2.sh on $i and write report to $homespace/report/$c/$p/report_m2.log..."
         bash $homespace/$POLICYTESTDIR/m2.sh $PKGBUILD > $homespace/report/$c/$p/report_m2.log
+        # Run install tests polbicies
         spack cd -i $p%$c
         PKGINSTALL=$(pwd)
         echo "Running m13.sh on $i and write report to $homespace/report/$c/$p/report_m13.log..."
