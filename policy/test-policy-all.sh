@@ -23,15 +23,10 @@ echo "Tests of xsdk policy for the packages : $PACKAGES"
 # list of compilers
 COMPILERS=( $3 )
 if [ -z "$COMPILERS" ]; then
-   COMPILERS=$($SPACKEXEPATH compilers | grep @)
+   COMPILERS=$($SPACKPATH/bin/spack compilers | grep @)
 else
    COMPILERS="${COMPILERS[@]}"
 fi
-echo "Tests of xsdk installation with the compilers : $COMPILERS"
-
-
-# Store the tests policy directory
-POLICYTESTDIR=$(dirname $0)
 echo "Tests of xsdk installation with the compilers : $COMPILERS"
 
 
