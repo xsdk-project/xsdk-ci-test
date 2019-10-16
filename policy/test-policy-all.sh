@@ -57,7 +57,7 @@ do
         fi
 
         # Run source tests policies spack-src
-        spack -S $p
+        spack cd -S $p
         PKGTOPSTAGE=$(pwd)
         PKGBUILD=$(ls -t . | grep $p)
         PKGSTAGE=$PKGTOPSTAGE/$PKGBUILD
