@@ -1,48 +1,57 @@
 stages:
     - build
 
-
 before_script:
+     - echo "Cleaning Spack"
      - if [  -d "spack" ]; then
             rm -rf spack;
         fi
+     - echo "Cleaning xsdk-tests-ci"
      - if [  -d "xsdk-tests-ci" ]; then
           rm -rf xsdk-tests-ci;
         fi
+     - echo "Cloning Spack"
      - git clone https://github.com/spack/spack.git;
+     - cd spack
+     - git checkout balay/xsdk-0.5.0
+     - cd ..
+     - . spack/share/spack/setup-env.sh
+     - echo "Cloning xsdk-tests-ci"
      - git clone https://github.com/xsdk-project/xsdk-ci-test.git xsdk-tests-ci;
-     - bash xsdk-tests-ci/spack/xSDK-install.sh $(pwd)/spack/bin/spack
-     - result=$(echo $?)
-     - if [ $result -gt 0 ];then
-     -     return $result
-     - fi
-     - bash xsdk-tests-ci/policy/test-policy-all.sh $(pwd)/spack "phist petsc"
+     - echo "Installing xSDK with conpiler $i";
+     - bash xsdk-tests-ci/spack/xSDK-install.sh $(pwd)/spack/bin/spack;
+     - result=$(echo $?);
+     - if [ $result -gt 0 ]; then
+         return $result;
+       fi
+     - PACKAGES="phist plasma amrex petsc trilinos sundials hypre superlu-dist pumi butterflypack dealii precice slepc strumpack tasmanian ginkgo mfem omega-h"
+     - echo "Running tests on packages $PACKAGES"
+     - bash xsdk-tests-ci/policy/test-policy-all.sh $(pwd)/spack "$PACKAGES"
 
-job 1:
+Fedora-xsdk:
     image: perrinel/fedora-xsdk
     stage: build
     script:
-        - echo "Building for fedora"
+        - echo "Building xSDK on fedora:latest with compilers $COMPILERS"
     artifacts:
         paths:
-        - report/phist/report_m1.log
-        - report/phist/report_m2.log
-        - report/phist/report_m7.log
+        - report/gcc@8.3.1/phist/report_m1.log
+        - report/gcc@8.3.1/phist/report_m2.log
+        - report/gcc@8.3.1/phist/report_m7.log
         - report/gcc@8.3.1/phist/report_m13.log
-        expire_in: 1 week
-
-job 2:
-    image: perrinel/ubuntu-xsdk
-    stage: build
-    script:
-        - echo "Building for ubuntu"
-    artifacts:
-        paths:
-        - report/phist/report_m1.log
-        - report/phist/report_m2.log
-        - report/phist/report_m7.log
-        - report/gcc@7.4.0/phist/report_m13.log
         - report
         expire_in: 1 week
 
-        
+Ubuntu-xsdk:
+    image: perrinel/ubuntu-xsdk
+    stage: build
+    script:
+        - echo "Building xSDK on ubuntu:latest with compilers $COMPILERS"
+    artifacts:
+        paths:
+        - report/gcc@7.4.0/phist/report_m1.log
+        - report/gcc@7.4.0/phist/report_m2.log
+        - report/gcc@7.4.0/phist/report_m7.log
+        - report/gcc@7.4.0/phist/report_m13.log
+        - report
+        expire_in: 1 week
