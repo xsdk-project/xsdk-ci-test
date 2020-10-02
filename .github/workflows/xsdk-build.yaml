@@ -23,64 +23,65 @@ jobs:
   #############################################################################
   # GitHub-hosted runners
 
+  github-osx:
+    runs-on: ${{ matrix.runner }}
+    # always run this job even if others fail
+    if: always()
+    continue-on-error: false
+    # create a build matrix for the job
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
+    strategy:
+      matrix:
+        runner: [macos-latest]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
+      # More details: https://github.com/actions/checkout
+      # Note: 'uses' is currently not supported in "composite" actions and should be put here
+      # checkout xsdk repo
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      # nested checkout of the current repo to access the action
+      - uses: actions/checkout@v2
+        with:
+          path: CI
+      # Custom "composite action":
+      - uses: ./CI/.github/actions/xsdk-build
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk'
+
+
+  # #####################################
   # github-ubuntu:
   #   runs-on: ${{ matrix.runner }}
   #   # always run this job even if others fail
   #   if: always()
   #   continue-on-error: false
-  #   # create a build matrix for the job
-  #   # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
   #   strategy:
   #     matrix:
   #       runner: [ubuntu-latest]
   #       compiler: [gcc]
 
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
   #   steps:
-  #     # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
-  #     # More details: https://github.com/actions/checkout
-  #     # Note: 'uses' is currently not supported in "composite" actions and should be put here
-  #     # checkout xsdk repo
   #     - uses: actions/checkout@v2
   #       with:
   #         repository: ${{ env.xsdk-repo }}
   #         ref: ${{ env.xsdk-branch }}
-  #     # nested checkout of the current repo to access the action
   #     - uses: actions/checkout@v2
   #       with:
   #         path: CI
-  #     # Custom "composite action":
   #     - uses: ./CI/.github/actions/xsdk-build
   #       with:
-  #         # cmd: echo Hello World
   #         cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
-  # #####################################
-  # github-osx:
-  #   runs-on: ${{ matrix.runner }}
-  #   if: always()
-  #   continue-on-error: false
-  #   strategy:
-  #     matrix:
-  #       runner: [macos-latest]
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         repository: ${{ env.xsdk-repo }}
-  #         ref: ${{ env.xsdk-branch }}
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: CI
-  #     - uses: ./CI/.github/actions/xsdk-build
-  #       with:
-  #         cmd: './bin/spack install xsdk'
-
-
-  # #############################################################################
-  # #############################################################################
-  # # self-hosted runners
+  #############################################################################
+  #############################################################################
+  # self-hosted runners
 
   # vreshniak-osx:
   #   runs-on: ${{ matrix.runner }}
@@ -104,25 +105,25 @@ jobs:
   #         cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
-  #####################################
-  vreshniak-linux:
-    runs-on: ${{ matrix.runner }}
-    if: always()
-    continue-on-error: false
-    strategy:
-      matrix:
-        runner: [vreshniak-utk]
-        compiler: [gcc]
+  # #####################################
+  # vreshniak-linux:
+  #   runs-on: ${{ matrix.runner }}
+  #   if: always()
+  #   continue-on-error: false
+  #   strategy:
+  #     matrix:
+  #       runner: [vreshniak-utk]
+  #       compiler: [gcc]
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: ${{ env.xsdk-repo }}
-          ref: ${{ env.xsdk-branch }}
-      - uses: actions/checkout@v2
-        with:
-          path: CI
-      - uses: ./CI/.github/actions/xsdk-build
-        with:
-          cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         repository: ${{ env.xsdk-repo }}
+  #         ref: ${{ env.xsdk-branch }}
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         path: CI
+  #     - uses: ./CI/.github/actions/xsdk-build
+  #       with:
+  #         cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
