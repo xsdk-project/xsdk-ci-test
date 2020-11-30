@@ -1,4 +1,4 @@
-name: xsdk-build
+name: github-macos
 
 env:
   xsdk-repo: xsdk-project/spack-xsdk
