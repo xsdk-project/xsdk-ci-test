@@ -1,0 +1,52 @@
+name: xsdk-build
+
+env:
+  xsdk-repo: xsdk-project/spack-xsdk
+  xsdk-branch: xsdk-0.6.0 #develop
+
+
+# Controls when the action will run
+on:
+  # trigger the workflow manually
+  workflow_dispatch:
+  # # trigger the workflow on schedule
+  # # https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events
+  # schedule:
+  #   - cron:  '* * * * *'
+
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  #############################################################################
+  #############################################################################
+  # GitHub-hosted runners
+
+
+  github-osx:
+    runs-on: ${{ matrix.runner }}
+    # always run this job even if others fail
+    # if: always()
+    continue-on-error: false
+    # create a build matrix for the job
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
+    strategy:
+      matrix:
+        runner: [macos-latest]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
+      # More details: https://github.com/actions/checkout
+      # Note: 'uses' is currently not supported in "composite" actions and should be put here
+      # checkout xsdk repo
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      # Custom "composite action":
+      - uses: vreshniak/xsdk-ci-test@master
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
