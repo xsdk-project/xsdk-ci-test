@@ -91,7 +91,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: ${{ env.xsdk-repo }}
-          ref: ${{ env.xsdk-branch }}
+          ref: xsdk-0.6.0
      - uses: vreshniak/xsdk-ci-test@master
         with:
           cmd: echo Hello World
