@@ -49,39 +49,28 @@ jobs:
         with:
           cmd: echo Hello World
           # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
-      # # nested checkout of the current repo to access the action
-      # - uses: actions/checkout@v2
-      #   with:
-      #     path: CI
-      # # Custom "composite action":
-      # - uses: ./CI/.github/actions/xsdk-build
-      #   with:
-      #     cmd: echo Hello World
-      #     # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
 
 
-  # #####################################
-  # github-ubuntu:
-  #   runs-on: ${{ matrix.runner }}
-  #   # always run this job even if others fail
-  #   if: always()
-  #   continue-on-error: false
-  #   strategy:
-  #     matrix:
-  #       runner: [ubuntu-latest]
-  #       compiler: [gcc]
+  #####################################
+  github-ubuntu:
+    runs-on: ${{ matrix.runner }}
+    # always run this job even if others fail
+    if: always()
+    continue-on-error: false
+    strategy:
+      matrix:
+        runner: [ubuntu-latest]
+        compiler: [gcc]
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         repository: ${{ env.xsdk-repo }}
-  #         ref: ${{ env.xsdk-branch }}
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: CI
-  #     - uses: ./CI/.github/actions/xsdk-build
-  #       with:
-  #         cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      - uses: vreshniak/xsdk-ci-test@master
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
   #############################################################################
