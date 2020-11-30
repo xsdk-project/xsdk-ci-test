@@ -88,10 +88,10 @@ jobs:
         compiler: [clang]
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: ${{ env.xsdk-repo }}
-          ref: ${{ env.xsdk-branch }}
+      # - uses: actions/checkout@v2
+      #   with:
+      #     repository: ${{ env.xsdk-repo }}
+      #     ref: ${{ env.xsdk-branch }}
      - uses: vreshniak/xsdk-ci-test@master
         with:
           cmd: echo Hello World
