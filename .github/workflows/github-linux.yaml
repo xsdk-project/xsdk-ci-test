@@ -36,7 +36,7 @@ jobs:
         with:
           repository: ${{ env.xsdk-repo }}
           ref: ${{ env.xsdk-branch }}
-      - uses: vreshniak/xsdk-ci-test@master
+      - uses: xsdk-project/xsdk-ci-test@master
         with:
           # cmd: echo Hello World
           cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
