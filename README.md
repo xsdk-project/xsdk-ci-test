@@ -1,1 +1,2 @@
-![xsdk-build](https://github.com/vreshniak/xsdk-ci-test/workflows/xsdk-build/badge.svg?job_name=github-osx)
+![build](https://github.com/vreshniak/xsdk-ci-test/workflows/xsdk-build/badge.svg?branch=master)
+![build](https://github.com/vreshniak/xsdk-ci-test/workflows/github-linux/badge.svg?branch=master)
