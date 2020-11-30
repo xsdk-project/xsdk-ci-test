@@ -73,9 +73,9 @@ jobs:
           # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
-  # #############################################################################
-  # #############################################################################
-  # # self-hosted runners
+  #############################################################################
+  #############################################################################
+  # self-hosted runners
 
 
   #####################################
@@ -84,7 +84,7 @@ jobs:
     continue-on-error: false
     strategy:
       matrix:
-        runner: [self-hosted, vreshniak-osx]
+        runner: [vreshniak-osx]
         compiler: [clang]
 
     steps:
@@ -99,25 +99,22 @@ jobs:
           # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
-  # #####################################
-  # vreshniak-linux:
-  #   runs-on: ${{ matrix.runner }}
-  #   if: always()
-  #   continue-on-error: false
-  #   strategy:
-  #     matrix:
-  #       runner: [vreshniak-utk]
-  #       compiler: [gcc]
+  #####################################
+  vreshniak-ubuntu:
+    runs-on: ${{ matrix.runner }}
+    continue-on-error: false
+    strategy:
+      matrix:
+        runner: [vreshniak-ubuntu]
+        compiler: [gcc]
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         repository: ${{ env.xsdk-repo }}
-  #         ref: ${{ env.xsdk-branch }}
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: CI
-  #     - uses: ./CI/.github/actions/xsdk-build
-  #       with:
-  #         cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      - uses: vreshniak/xsdk-ci-test@master
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
