@@ -48,5 +48,6 @@ jobs:
       # Custom "composite action":
       - uses: vreshniak/xsdk-ci-test@master
         with:
-          cmd: echo Hello World
+          # cmd: echo Hello World
+          cmd: './bin/spack install xsdk ^arpack-ng fflags=-fallow-argument-mismatch'
           # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
