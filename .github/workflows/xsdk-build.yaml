@@ -19,58 +19,58 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # #############################################################################
-  # #############################################################################
-  # # GitHub-hosted runners
+  #############################################################################
+  #############################################################################
+  # GitHub-hosted runners
 
 
-  # #####################################
-  # github-osx:
-  #   runs-on: ${{ matrix.runner }}
-  #   # always run this job even if others fail
-  #   # if: always()
-  #   continue-on-error: false
-  #   # create a build matrix for the job
-  #   # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
-  #   strategy:
-  #     matrix:
-  #       runner: [macos-latest]
+  #####################################
+  github-osx:
+    runs-on: ${{ matrix.runner }}
+    # always run this job even if others fail
+    # if: always()
+    continue-on-error: false
+    # create a build matrix for the job
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategy
+    strategy:
+      matrix:
+        runner: [macos-latest]
 
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-  #     # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
-  #     # More details: https://github.com/actions/checkout
-  #     # Note: 'uses' is currently not supported in "composite" actions and should be put here
-  #     # checkout xsdk repo
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         repository: ${{ env.xsdk-repo }}
-  #         ref: ${{ env.xsdk-branch }}
-  #     # Custom "composite action":
-  #     - uses: vreshniak/xsdk-ci-test@master
-  #       with:
-  #         cmd: echo Hello World
-  #         # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
+      # More details: https://github.com/actions/checkout
+      # Note: 'uses' is currently not supported in "composite" actions and should be put here
+      # checkout xsdk repo
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      # Custom "composite action":
+      - uses: vreshniak/xsdk-ci-test@master
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
 
 
-  # #####################################
-  # github-ubuntu:
-  #   runs-on: ${{ matrix.runner }}
-  #   continue-on-error: false
-  #   strategy:
-  #     matrix:
-  #       runner: [ubuntu-latest]
-  #       compiler: [gcc]
+  #####################################
+  github-ubuntu:
+    runs-on: ${{ matrix.runner }}
+    continue-on-error: false
+    strategy:
+      matrix:
+        runner: [ubuntu-latest]
+        compiler: [gcc]
 
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         repository: ${{ env.xsdk-repo }}
-  #         ref: ${{ env.xsdk-branch }}
-  #     - uses: vreshniak/xsdk-ci-test@master
-  #       with:
-  #         cmd: echo Hello World
-  #         # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      - uses: vreshniak/xsdk-ci-test@master
+        with:
+          cmd: echo Hello World
+          # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
   # #############################################################################
@@ -88,11 +88,11 @@ jobs:
         compiler: [clang]
 
     steps:
-      # - uses: actions/checkout@v2
-      #   with:
-      #     repository: ${{ env.xsdk-repo }}
-      #     ref: ${{ env.xsdk-branch }}
-     - uses: vreshniak/xsdk-ci-test@master
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ env.xsdk-repo }}
+          ref: ${{ env.xsdk-branch }}
+      - uses: vreshniak/xsdk-ci-test@master
         with:
           cmd: echo Hello World
           # cmd: raise error "Test cases failed !!!"
