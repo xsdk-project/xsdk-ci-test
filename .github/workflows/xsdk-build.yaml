@@ -80,24 +80,24 @@ jobs:
   # self-hosted runners
 
 
-  #####################################
-  vreshniak-osx:
-    runs-on: ${{ matrix.runner }}
-    continue-on-error: false
-    strategy:
-      matrix:
-        runner: [vreshniak-osx]
-        compiler: [clang]
+  # #####################################
+  # vreshniak-osx:
+  #   runs-on: ${{ matrix.runner }}
+  #   continue-on-error: false
+  #   strategy:
+  #     matrix:
+  #       runner: [vreshniak-osx]
+  #       compiler: [clang]
 
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: ${{ env.xsdk-repo }}
-          ref: ${{ env.xsdk-branch }}
-     - uses: vreshniak/xsdk-ci-test@master
-        with:
-          cmd: raise error "Test cases failed !!!"
-          # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         repository: ${{ env.xsdk-repo }}
+  #         ref: ${{ env.xsdk-branch }}
+  #    - uses: vreshniak/xsdk-ci-test@master
+  #       with:
+  #         cmd: raise error "Test cases failed !!!"
+  #         # cmd: './bin/spack install xsdk%${{ matrix.compiler }}'
 
 
   # #####################################
