@@ -1,3 +1,5 @@
 ![example workflow name](https://github.com/vreshniak/xsdk-ci-test/workflows/xsdk-build/badge.svg)
 
 [![YourActionName Actions Status](https://github.com/vreshniak/xsdk-ci-test/workflows/xsdk-build/badge.svg)](https://github.com/vreshniak/xsdk-ci-test/actions)
+
+![Test](https://github.com/vreshniak/xsdk-ci-test/workflows/xsdk-build/badge.svg?branch=master)
