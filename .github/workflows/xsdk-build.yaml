@@ -3,7 +3,6 @@ name: xsdk-build
 env:
   xsdk-repo: xsdk-project/spack-xsdk
   xsdk-branch: xsdk-0.6.0 #develop
-  xsdk-action: vreshniak/xsdk-ci-test@master
 
 
 # Controls when the action will run
@@ -46,10 +45,19 @@ jobs:
           repository: ${{ env.xsdk-repo }}
           ref: ${{ env.xsdk-branch }}
       # Custom "composite action":
-      - uses: ${{ env.xsdk-action }}
+      - uses: vreshniak/xsdk-ci-test@master
         with:
           cmd: echo Hello World
           # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
+      # # nested checkout of the current repo to access the action
+      # - uses: actions/checkout@v2
+      #   with:
+      #     path: CI
+      # # Custom "composite action":
+      # - uses: ./CI/.github/actions/xsdk-build
+      #   with:
+      #     cmd: echo Hello World
+      #     # cmd: './bin/spack install xsdk%apple-clang@11.0.3 ^arpack-ng fflags=-fallow-argument-mismatch'
 
 
   # #####################################
